@@ -2,18 +2,13 @@
 import * as React from 'react'
 import {Link} from 'gatsby'
 import Layout from '../components/layout'
-import { StaticImage } from 'gatsby-plugin-image'
 // Stap 2: definieer je component
-const IndexPage = () => {
+const AboutPage = () => {
     return (
         <Layout pageTitle ="Welcome to Ziani's Agency">
-            <p>Something will come here.</p>
-            <StaticImage
-                alt="randomized unplash image"
-                src="../images/gatsby-astronaut.png"
-                />
+            <p>Something about us will be shown soon.</p>
         </Layout>
     )
 }
 // Stap 3: Exporteer je component
-export default IndexPage
+export default AboutPage
