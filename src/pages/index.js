@@ -2,32 +2,37 @@
 import * as React from 'react'
 import Layout from '../components/layout'
 import { graphql } from 'gatsby'
-import { StaticImage } from 'gatsby-plugin-image'
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import Artist from "../components/Artist"
+
 import {
-    header, 
+    header,
     headerInfo,
     headerPicture,
     headerTitle,
     CTA,
-} from '../page.module.css'
+    section,
+    subtitle,
+    artists,
+  } from "../page.module.css"
+
 // Stap 2: definieer je component
-const IndexPage = ({ 
-    data: { 
+const IndexPage = ({
+    data: {
         wpPage: { homePage },
     },
- }) => {
+}) => {
     const image = getImage(homePage.headerHome.picture.localFile)
+    console.log(homePage)
     return (
-        <main>
             <Layout>
                 <div className={header}>
                     <div className={headerInfo}>
                         <h1 className={headerTitle}>{homePage.headerHome.title}</h1>
                         <div
-                         dangerouslySetInnerHTML={{
-                             __html: homePage.headerHome.description,
-                         }}
+                            dangerouslySetInnerHTML={{
+                                __html: homePage.headerHome.description,
+                            }}
                         />
                         <a className={CTA} target="__blank" href="{homePage.callToAction.link}">
                             {homePage.callToAction.description}
@@ -40,11 +45,18 @@ const IndexPage = ({
                         />
                     </div>
                 </div>
+                <div className={section}>
+                <h2 className={subtitle}>{homePage.featuredArtists.title}</h2>
+                    <p>{homePage.featuredArtists.description}</p>
+                    <div className={artists}>
+                        {homePage.featuredArtists.artists.map(artist => (
+                        <Artist slug={`artists/${artist.slug}`} key={artist.id} artist={artist} />
+                        ))}
+                    </div> 
+                </div>   
             </Layout>
-        </main>
     )
 }
-
 export const query = graphql`
 query {
     wpPage(slug: {eq: "home"}) {
